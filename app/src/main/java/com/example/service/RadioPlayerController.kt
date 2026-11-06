@@ -13,7 +13,6 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
-import android.os.CountDownTimer
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.MainActivity
@@ -60,10 +59,7 @@ object RadioPlayerController {
 
     private fun getHttpHeaders(): Map<String, String> {
         return mapOf(
-            "User-Agent" to "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 RadyoApp/1.0",
-            "Icy-MetaData" to "1",
-            "Accept" to "*/*",
-            "Connection" to "keep-alive"
+            "User-Agent" to "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 RadyoApp/1.0"
         )
     }
 
@@ -336,8 +332,7 @@ object RadioPlayerController {
                 AudioManager.AUDIOFOCUS_GAIN -> resume()
             }
         }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
                 .setAudioAttributes(
                     AudioAttributes.Builder()
@@ -452,7 +447,7 @@ class RadioPlaybackService : Service() {
                 "Duraklat",
                 pauseIntent
             )
-        } else {
+            } else {
             val playIntent = PendingIntent.getService(
                 this, 2, Intent(this, RadioPlaybackService::class.java).apply { action = ACTION_PLAY },
                 PendingIntent.FLAG_IMMUTABLE
@@ -512,3 +507,4 @@ class RadioPlaybackService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 }
+            
